@@ -1,3 +1,15 @@
+# REqurement
+celery 5.0.5 
+eventlet
+set redis: 127.0.0.1
+
+# command
+celery -A app.client worker --loglevel=info -P eventlet
+
+run and test
+
+
+
 [![HitCount](http://hits.dwyl.io/ro6ley/flask-celery-demo.svg)](http://hits.dwyl.io/ro6ley/flask-celery-demo)
 
 # Ping! 
