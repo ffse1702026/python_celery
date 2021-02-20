@@ -9,6 +9,7 @@ celery -A app.client worker --loglevel=info -P eventlet
 run and test
 
 celery -A test worker -l info -Ofair
+flower -A app.client --port=5555
 
 
 
