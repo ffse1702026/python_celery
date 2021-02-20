@@ -8,6 +8,8 @@ celery -A app.client worker --loglevel=info -P eventlet
 
 run and test
 
+celery -A test worker -l info -Ofair
+
 
 
 [![HitCount](http://hits.dwyl.io/ro6ley/flask-celery-demo.svg)](http://hits.dwyl.io/ro6ley/flask-celery-demo)
