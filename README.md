@@ -10,6 +10,11 @@ run and test
 
 celery -A test worker -l info -Ofair
 flower -A app.client --port=5555
+from flask_cors import CORS
+
+app = Flask(__name__)
+app.config.from_object("config")
+CORS(app)
 
 
 
