@@ -5,7 +5,7 @@ set redis: 127.0.0.1
 
 # command
 celery -A app.client worker --loglevel=info -P eventlet
-
+pip3 install flask-cors
 run and test
 
 celery -A test worker -l info -Ofair
