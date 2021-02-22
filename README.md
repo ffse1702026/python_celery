@@ -146,3 +146,50 @@ const mapStateToProps = (state)  => {
 }
 
 export default connect(mapStateToProps, {updateTest})(Test)
+
+
+# test
+import os
+from flask import Flask, flash, render_template, request, redirect, send_file, url_for, send_from_directory
+from celery import Celery
+from celery.result import AsyncResult
+from flask_cors import CORS
+
+app = Flask(__name__,static_url_path='')
+app.config.from_object("config")
+CORS(app)
+
+
+# set up celery client
+client = Celery(app.name, broker='redis://127.0.0.1:6379/0', backend='redis://127.0.0.1:6379/0')
+# client.conf.update(app.config)
+
+@client.task
+def caculator():
+    return 5
+
+
+@app.route('/create', methods=['GET', 'POST'])
+def index():
+    task = caculator.delay()
+    return render_template('build/index.html')
+
+@app.route('/get', methods=['GET', 'POST'])
+def getData():
+    id = request.args.get('id')
+    print("========ID",id)
+    task = client.AsyncResult(id )
+    print('done', task.result)
+    return "1"
+
+@app.route('/static/js/<path:path>')
+def send_js(path):
+    print('gothis', path)
+    return send_from_directory('templates/build/static/js', path)
+
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
