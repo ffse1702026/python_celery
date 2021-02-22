@@ -3,6 +3,7 @@ celery 5.0.5
 eventlet
 set redis: 127.0.0.1
 
+
 # command
 celery -A app.client worker --loglevel=info -P eventlet
 pip3 install flask-cors
@@ -85,3 +86,63 @@ $ flower -A app.client --port=5555
 Please feel free to raise issues using this [template](./.github/ISSUE_TEMPLATE.md) and I'll get back to you.
 
 You can also fork the repository, make changes and submit a Pull Request using this [template](./.github/PULL_REQUEST_TEMPLATE.md).
+
+
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import {updateTest} from '../actions/index'
+import * as lodash from 'lodash'
+
+class Test extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {data: 'ABC'}
+    }
+    static getDerivedStateFromProps(props, state) {
+        let computed = {}
+        computed.name = props.test.name
+        computed.dataName = state.data
+        return computed
+    }
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+        console.log('getSnapshotBeforeUpdate');
+        return null;
+    }
+
+    updateTest = () => {
+        this.props.updateTest({name: 'HA'})
+    }
+    componentDidMount= () => {
+        console.log('componentDidmount');
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return true;
+        
+    }
+
+    componentDidUpdate(preProps, preState) {
+        console.log('componentDidUpdate');
+    }
+  
+    render() {
+        console.log('render', this.state);
+      return (
+          <div>
+        <div onClick={this.updateTest}>{this.state.name}</div>
+            <div onClick={() => this.setState({data: 'abc'})}>{this.state.dataName}</div>
+        </div>
+      );
+    }
+}
+
+const mapStateToProps = (state)  => {
+    console.log('state', state);
+    return {
+        test : state.cart.test
+    }
+
+}
+
+export default connect(mapStateToProps, {updateTest})(Test)
