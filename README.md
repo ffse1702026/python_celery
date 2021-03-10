@@ -1,3 +1,30 @@
+#TEST
+import * as settle from 'axios/lib/core/settle';
+// import * as settle from 'axios/lib/core/settle';
+const adapter = async (config) => {
+    var res = {sang: 123};
+    console.log('config', config);
+
+    return new Promise((resolse, reject) => {
+        var response = {
+            data: res, status: 200, config: config
+        }
+        settle(resolse, reject, response)
+    })
+}
+
+export default adapter;
+
+axios.defaults.adapter = adapter;
+        axios.get('https://test/test', {
+            params: {
+              ID: 12345
+            }
+          }).then((res) => {
+              console.log('resss', res)
+          })
+
+
 # REqurement
 celery 5.0.5 
 eventlet
