@@ -1,3 +1,12 @@
+#
+Just me and Open sources
+TechWorld with Hana
+linuxacademy.com
+vargrant --> VirtualBox --> create K8s
+minikube
+
+
+
 #TEST
 import * as settle from 'axios/lib/core/settle';
 // import * as settle from 'axios/lib/core/settle';
